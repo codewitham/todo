@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar/Navbar";
+import { ThemeProvider } from "@/contexts/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark, neobrutalism } from '@clerk/themes'
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +20,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: [neobrutalism],
+      }}
+    >
+      <html lang="en">
+
+        <body className={inter.className} suppressHydrationWarning>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className=" min-h-screen flex flex-col">
+
+              <Navbar />
+              <div className="flex-1 container mx-auto p-5 flex flex-col">
+                {children}
+              </div>
+
+            </div>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+
+      </html>
+    </ClerkProvider>
   );
 }
