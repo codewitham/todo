@@ -18,7 +18,7 @@ const Navbar = () => {
                 <div className=' flex items-center gap-2'>
                     <ModeToggle />
 
-                    <Link href={"/"}>
+                    <Link href={"https://github.com/codewitham/todo"}>
                         <Button size={"icon"} variant={"ghost"}>
                             <Github className='h-4 w-4' />
                         </Button>
